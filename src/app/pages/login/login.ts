@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 export class Login {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.loginForm = this.fb.group({
       username: [''],
       password: [''],
@@ -19,6 +20,9 @@ export class Login {
   }
 
   onSubmit() {
-    console.log(this.loginForm.value);
+    const { username, password } = this.loginForm.value;
+    this.authService.login(username, password).subscribe((res) => {
+      console.log(res);
+    });
   }
 }
