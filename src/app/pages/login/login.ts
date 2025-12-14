@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth';
+import { Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-login',
@@ -14,9 +16,10 @@ export class Login {
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.loginForm = this.fb.group({
-      username: [''],
-      password: [''],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
     });
+
   }
 
   onSubmit() {
@@ -27,8 +30,8 @@ export class Login {
         alert('Login successful');
       },
       error: (err) => {
-        console.error(err);
-        alert('Invalid username or password');
+        const msg = err?.error || 'Login failed';
+        alert(msg);
       },
     });
   }
