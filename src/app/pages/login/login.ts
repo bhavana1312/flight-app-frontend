@@ -21,8 +21,15 @@ export class Login {
 
   onSubmit() {
     const { username, password } = this.loginForm.value;
-    this.authService.login(username, password).subscribe((res) => {
-      console.log(res);
+    this.authService.login(username, password).subscribe({
+      next: (res) => {
+        console.log('Login success', res);
+        alert('Login successful');
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Invalid username or password');
+      },
     });
   }
 }
