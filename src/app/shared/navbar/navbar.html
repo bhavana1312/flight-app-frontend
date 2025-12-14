@@ -5,6 +5,10 @@
     <li><a routerLink="/">Home</a></li>
 
     <li *ngIf="!authService.isLoggedIn()">
+      <a routerLink="/register">Register</a>
+    </li>
+
+    <li *ngIf="!authService.isLoggedIn()">
       <a routerLink="/login">Login</a>
     </li>
 
