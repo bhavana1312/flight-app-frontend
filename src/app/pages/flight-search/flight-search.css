@@ -1,6 +1,6 @@
 .search-container {
   max-width: 1100px;
-  margin: 48px auto 32px;
+  margin: 15px auto 32px;
   padding: 28px 32px;
   background: radial-gradient(1200px 600px at 80% 20%, #e0e7ff 0%, transparent 60%),
     radial-gradient(800px 400px at 10% 80%, #f1f5f9 0%, transparent 55%), #ffffff;
@@ -76,7 +76,7 @@
 }
 .popular-container {
   max-width: 1100px;
-  margin: 48px auto 80px;
+  margin: 0px auto 0px;
 }
 
 .popular-container h3 {
@@ -124,7 +124,7 @@
 
 .results-container {
   max-width: 1100px;
-  margin: 24px auto 80px;
+  margin: 0px auto 0px;
 }
 
 .results-container h3 {
