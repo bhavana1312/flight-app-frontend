@@ -4,7 +4,6 @@ import { AuthService } from '../../services/auth';
 import { Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
-
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -28,10 +27,17 @@ export class Login {
       next: (res) => {
         console.log('Login success', res);
         alert('Login successful');
-        this.router.navigate(['/booking']);
+        const role = res.roles[0];
+        console.log(role);
+
+        if (role === 'ROLE_ADMIN') {
+          this.router.navigate(['/admin'], { replaceUrl: true });
+        } else {
+          this.router.navigate(['/booking'], { replaceUrl: true });
+        }
       },
       error: (err) => {
-        const msg = err?.error || 'Login failed';
+        const msg = err?.error || 'Invalid Username or Password';
         alert(msg);
       },
     });

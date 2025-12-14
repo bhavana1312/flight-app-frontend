@@ -31,7 +31,7 @@ export class Register {
       },
       error: (err) => {
         console.error(err);
-        const msg = err?.error || 'Registration failed';
+        const msg = err;
         alert(msg);
       },
     });
