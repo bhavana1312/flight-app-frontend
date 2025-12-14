@@ -1,19 +1,40 @@
-<nav class="navbar">
+<!-- <nav class="navbar">
   <div class="logo">FlightApp</div>
 
   <ul class="nav-links">
-    <li><a routerLink="/">Home</a></li>
-
-    <li *ngIf="!authService.isLoggedIn()">
-      <a routerLink="/register">Register</a>
+    <li>
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        Home
+      </a>
     </li>
 
     <li *ngIf="!authService.isLoggedIn()">
-      <a routerLink="/login">Login</a>
+      <a routerLink="/register" routerLinkActive="active">
+        Register
+      </a>
+    </li>
+
+    <li *ngIf="!authService.isLoggedIn()">
+      <a routerLink="/login" routerLinkActive="active">
+        Login
+      </a>
     </li>
 
     <li *ngIf="authService.isLoggedIn()">
-      <a (click)="logout()" style="cursor:pointer">Logout</a>
+      <a (click)="logout()" style="cursor:pointer">
+        Logout
+      </a>
     </li>
+  </ul>
+</nav> -->
+
+<nav class="navbar">
+  <div class="nav-logo">FlightApp</div>
+
+  <ul class="nav-links">
+    <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+    <li><a routerLink="/search" routerLinkActive="active">Flights</a></li>
+    <li><a routerLink="/booking" routerLinkActive="active">Bookings</a></li>
+    <li><a routerLink="/login" class="nav-btn">Login</a></li>
   </ul>
 </nav>
