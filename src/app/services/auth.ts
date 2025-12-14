@@ -20,6 +20,13 @@ export class AuthService {
         tap((res: any) => {
           if (res?.token) {
             localStorage.setItem('token', res.token);
+            localStorage.setItem(
+              'user',
+              JSON.stringify({
+                username: res.username,
+                email: res.email,
+              })
+            );
           }
         })
       );
@@ -48,5 +55,10 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!this.getToken();
+  }
+
+  getLoggedInUser() {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
   }
 }

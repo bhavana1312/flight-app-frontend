@@ -1,2 +1,53 @@
-<h2>Booking Page</h2>
-<p>You are logged in and allowed to see this page.</p>
+<div class="booking-wrapper">
+
+  <div class="booking-header">
+    <h1>Hello, {{ userName }}</h1>
+    <p>Your booking history and travel details</p>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Loading bookings...
+  </div>
+
+  <div *ngIf="!loading && bookings.length===0" class="empty">
+    No bookings found.
+  </div>
+
+  <div class="booking-list" *ngIf="!loading && bookings.length>0">
+    <div class="booking-card" *ngFor="let booking of bookings">
+
+      <div class="card-top">
+        <div>
+          <h3>PNR: {{ booking.id }}</h3>
+          <span class="status">{{ booking.bookingStatus }}</span>
+        </div>
+        <div class="date">
+          {{ booking.journeyDate | date:'mediumDate' }}
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="info">
+          <span>Seats</span>
+          <strong>{{ booking.numberOfSeats }}</strong>
+        </div>
+
+        <div class="info">
+          <span>Meal</span>
+          <strong>{{ booking.mealPreference }}</strong>
+        </div>
+
+        <div class="info">
+          <span>Selected Seats</span>
+          <strong>{{ booking.selectedSeats.join(', ') }}</strong>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        Booked on {{ booking.bookingTime | date:'medium' }}
+      </div>
+
+    </div>
+  </div>
+
+</div>

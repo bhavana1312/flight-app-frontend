@@ -34,6 +34,7 @@
   color: #334155;
   position: relative;
   padding: 3px 0;
+  cursor: pointer;
 }
 
 .nav-links a.active {
@@ -52,13 +53,23 @@
 }
 
 .nav-btn {
-  font-family: 'IBM Plex Sans', system-ui, sans-serif;
   padding: 10px 22px !important;
   border-radius: 10px;
   font-size: 14px;
   font-weight: 500;
   background: linear-gradient(135deg, #1e40af, #2563eb);
   color: #ffffff !important;
+}
+
+.nav-logout {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+}
+
+.nav-logout:hover {
+  color: #dc2626;
 }
 
 @media (max-width: 900px) {

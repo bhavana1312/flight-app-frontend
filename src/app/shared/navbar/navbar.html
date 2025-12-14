@@ -2,9 +2,34 @@
   <div class="nav-logo">FlightApp</div>
 
   <ul class="nav-links">
-    <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
-    <li><a routerLink="/search" routerLinkActive="active">Flights</a></li>
-    <li><a routerLink="/booking" routerLinkActive="active">Bookings</a></li>
-    <li><a routerLink="/login" class="nav-btn">Login</a></li>
+    <li>
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        Home
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/search" routerLinkActive="active">
+        Flights
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/booking" routerLinkActive="active">
+        Bookings
+      </a>
+    </li>
+
+    <li *ngIf="!authService.isLoggedIn()">
+      <a routerLink="/login" class="nav-btn">
+        Login
+      </a>
+    </li>
+
+    <li *ngIf="authService.isLoggedIn()">
+      <a class="nav-logout" (click)="logout()">
+        Logout
+      </a>
+    </li>
   </ul>
 </nav>

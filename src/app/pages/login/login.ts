@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth';
 import { Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 
 @Component({
@@ -15,7 +15,7 @@ import { RouterModule } from '@angular/router';
 export class Login {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -28,6 +28,7 @@ export class Login {
       next: (res) => {
         console.log('Login success', res);
         alert('Login successful');
+        this.router.navigate(['/booking']);
       },
       error: (err) => {
         const msg = err?.error || 'Login failed';
