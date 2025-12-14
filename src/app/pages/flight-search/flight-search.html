@@ -3,10 +3,10 @@
 
   <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
     <label>From</label>
-    <input type="text" formControlName="fromPlace" placeholder="From city" />
+    <input type="text" formControlName="fromPlace" />
 
     <label>To</label>
-    <input type="text" formControlName="toPlace" placeholder="To city" />
+    <input type="text" formControlName="toPlace" />
 
     <label>Journey Date</label>
     <input type="date" formControlName="journeyDate" />
@@ -15,4 +15,39 @@
       Search Flights
     </button>
   </form>
+</div>
+
+<div class="results-container" *ngIf="flights.length>0">
+  <h3>Available Flights</h3>
+
+  <div class="flight-card" *ngFor="let flight of flights">
+    <div class="flight-header">
+      <div class="airline">
+        <!-- <img *ngIf="flight.airlineLogoUrl" [src]="flight.airlineLogoUrl" /> -->
+        <span>{{flight.airlineName}}</span>
+      </div>
+      <div class="price">
+        ₹{{flight.lowestPrice}}
+      </div>
+    </div>
+
+    <div class="flight-body">
+      <div>
+        <strong>{{flight.fromPlace}}</strong><br />
+        {{flight.departureDateTime | date:'short'}}
+      </div>
+
+      <div class="arrow">→</div>
+
+      <div>
+        <strong>{{flight.toPlace}}</strong><br />
+        {{flight.arrivalDateTime | date:'short'}}
+      </div>
+    </div>
+
+    <div class="flight-footer">
+      <span>Seats: {{flight.availableSeats}}</span>
+      <button>Book</button>
+    </div>
+  </div>
 </div>

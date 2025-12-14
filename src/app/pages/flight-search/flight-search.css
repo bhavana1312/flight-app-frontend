@@ -29,3 +29,70 @@ button:disabled{
   background:#94a3b8;
   cursor:not-allowed
 }
+
+.results-container{
+  max-width:800px;
+  margin:30px auto
+}
+
+.flight-card{
+  border:1px solid #ddd;
+  border-radius:8px;
+  padding:16px;
+  margin-bottom:16px
+}
+
+.flight-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px
+}
+
+.airline{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:bold
+}
+
+.airline img{
+  width:32px;
+  height:32px;
+  object-fit:contain
+}
+
+.price{
+  font-size:18px;
+  font-weight:bold;
+  color:#0f766e
+}
+
+.flight-body{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px
+}
+
+.arrow{
+  font-size:20px
+}
+
+.flight-footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:center
+}
+
+.flight-footer button{
+  padding:8px 14px;
+  background:#2563eb;
+  color:white;
+  border:none;
+  cursor:pointer
+}
+
+.flight-footer button:hover{
+  background:#1d4ed8
+}
