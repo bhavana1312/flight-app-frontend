@@ -1,8 +1,15 @@
 <nav class="navbar">
   <div class="logo">FlightApp</div>
+
   <ul class="nav-links">
     <li><a routerLink="/">Home</a></li>
-    <li><a routerLink="/login">Login</a></li>
-    <li><a routerLink="/register">Register</a></li>
+
+    <li *ngIf="!authService.isLoggedIn()">
+      <a routerLink="/login">Login</a>
+    </li>
+
+    <li *ngIf="authService.isLoggedIn()">
+      <a (click)="logout()" style="cursor:pointer">Logout</a>
+    </li>
   </ul>
 </nav>
