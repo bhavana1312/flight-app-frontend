@@ -1,0 +1,42 @@
+<div class="book-wrapper">
+
+  <h1>Book Flight</h1>
+
+  <form [formGroup]="bookingForm" (ngSubmit)="submit()">
+
+    <div class="row">
+      <input formControlName="userName" placeholder="User Name">
+      <input formControlName="userEmail" placeholder="Email">
+    </div>
+
+    <div class="row">
+      <input type="number" formControlName="numberOfSeats" placeholder="Number of Seats">
+      <select formControlName="mealPreference">
+        <option value="veg">Veg</option>
+        <option value="non-veg">Non Veg</option>
+      </select>
+    </div>
+
+    <input formControlName="selectedSeats" placeholder="Selected Seats (e.g B3,B4)">
+
+    <h3>Passengers</h3>
+
+    <div formArrayName="passengers">
+      <div class="passenger-card" *ngFor="let p of passengers.controls;let i=index" [formGroupName]="i">
+        <input formControlName="name" placeholder="Name">
+        <select formControlName="gender">
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+        <input type="number" formControlName="age" placeholder="Age">
+        <button type="button" (click)="removePassenger(i)" *ngIf="passengers.length>1">Remove</button>
+      </div>
+    </div>
+
+    <button type="button" class="add-btn" (click)="addPassenger()">Add Passenger</button>
+
+    <button type="submit" class="submit-btn">Confirm Booking</button>
+
+  </form>
+
+</div>
