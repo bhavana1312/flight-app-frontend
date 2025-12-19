@@ -27,9 +27,13 @@
     </li>
 
     <li *ngIf="authService.isLoggedIn()">
-      <a class="nav-logout" (click)="logout()">
+      <a class="nav-logout" (click)="openLogout()">
         Logout
       </a>
     </li>
   </ul>
+
 </nav>
+<app-confirm-modal *ngIf="showLogoutModal" title="Logout" message="Are you sure you want to logout?"
+  confirmText="Logout" cancelText="Cancel" (confirm)="confirmLogout()" (cancel)="cancelLogout()">
+</app-confirm-modal>
