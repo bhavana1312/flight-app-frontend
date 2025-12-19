@@ -18,6 +18,14 @@
     </button>
   </form>
 
+  <div class="message success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+
+  <div class="message error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
   <div class="auth-footer">
     <span>Don’t have an account?</span>
     <a routerLink="/register">Register</a>

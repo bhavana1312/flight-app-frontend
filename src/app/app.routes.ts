@@ -21,4 +21,9 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/admin/admin').then((m) => m.Admin),
     canActivate: [authGuard],
   },
+  {
+    path: 'booking/:flightId',
+    loadComponent: () => import('./pages/book-flight/book-flight').then((m) => m.BookFlight),
+    canActivate: [authGuard],
+  },
 ];

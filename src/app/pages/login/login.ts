@@ -3,16 +3,19 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth';
 import { Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class Login {
   loginForm: FormGroup;
+  successMessage = '';
+  errorMessage = '';
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
@@ -22,23 +25,26 @@ export class Login {
   }
 
   onSubmit() {
+    this.successMessage = '';
+    this.errorMessage = '';
+
     const { username, password } = this.loginForm.value;
+
     this.authService.login(username, password).subscribe({
       next: (res) => {
-        console.log('Login success', res);
-        alert('Login successful');
+        this.successMessage = 'Login successful';
         const role = res.roles[0];
-        console.log(role);
 
-        if (role === 'ROLE_ADMIN') {
-          this.router.navigate(['/admin'], { replaceUrl: true });
-        } else {
-          this.router.navigate(['/booking'], { replaceUrl: true });
-        }
+        setTimeout(() => {
+          if (role === 'ROLE_ADMIN') {
+            this.router.navigate(['/admin'], { replaceUrl: true });
+          } else {
+            this.router.navigate(['/booking'], { replaceUrl: true });
+          }
+        }, 1000);
       },
       error: (err) => {
-        const msg = err?.error || 'Invalid Username or Password';
-        alert(msg);
+        this.errorMessage = err?.error || 'Invalid Credentials';
       },
     });
   }

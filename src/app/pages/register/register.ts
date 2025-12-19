@@ -3,16 +3,19 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth';
 import { Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
 export class Register {
   registerForm: FormGroup;
+  successMessage = '';
+  errorMessage = '';
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
@@ -23,16 +26,17 @@ export class Register {
   }
 
   onSubmit() {
+    this.successMessage = '';
+    this.errorMessage = '';
     const { username, email, password } = this.registerForm.value;
     this.authService.register(username, email, password).subscribe({
       next: () => {
-        alert('Registration successful');
+        this.successMessage = 'Registration successful';
         this.router.navigate(['/login']);
       },
       error: (err) => {
         console.error(err);
-        const msg = err;
-        alert(msg);
+        this.errorMessage = err?.error || 'Username already in use';
       },
     });
   }

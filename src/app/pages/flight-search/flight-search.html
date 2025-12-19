@@ -9,7 +9,7 @@
     <input type="text" formControlName="toPlace" />
 
     <label>Journey Date</label>
-    <input type="date" formControlName="journeyDate" />
+    <input type="date" formControlName="journeyDate" [min]="today" />
 
     <button type="submit" [disabled]="searchForm.invalid">
       Search Flights
@@ -76,7 +76,9 @@
 
     <div class="flight-footer">
       <span>Seats: {{ flight.availableSeats }}</span>
-      <button>Book</button>
+      <button [routerLink]="['/booking', flight.flightId]">
+        Book
+      </button>
     </div>
   </div>
 </div>
