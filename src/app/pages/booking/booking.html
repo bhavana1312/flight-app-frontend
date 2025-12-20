@@ -19,7 +19,8 @@
       <div class="card-top">
         <div>
           <h3>PNR: {{ booking.id }}</h3>
-          <span class="status">{{ booking.bookingStatus }}</span>
+          <span class="status" [class.active]="booking.bookingStatus!=='CANCELLED'"
+            [class.cancelled]="booking.bookingStatus==='CANCELLED'">{{ booking.bookingStatus }}</span>
         </div>
         <div class="date">
           {{ booking.journeyDate | date:'mediumDate' }}
@@ -45,9 +46,34 @@
 
       <div class="card-footer">
         Booked on {{ booking.bookingTime | date:'medium' }}
+
+        <button class="cancel-btn" *ngIf="booking.bookingStatus!=='CANCELLED'" (click)="openCancelModal(booking.id)">
+          Cancel Booking
+        </button>
+
+        <span class=" cancelled-text" *ngIf="booking.bookingStatus==='CANCELLED'">
+          Booking Cancelled
+        </span>
       </div>
+
 
     </div>
   </div>
+
+  <app-confirm-modal *ngIf="showModal" title="Cancel Booking" message="Are you sure you want to cancel this booking?"
+    confirmText="Yes, Cancel" cancelText="Close" (confirm)="confirmCancel()" (cancel)="closeModal()">
+
+  </app-confirm-modal>
+  <div class="error-backdrop" *ngIf="showErrorDialog">
+    <div class="error-dialog">
+      <h3>Action Failed</h3>
+      <p>{{ dialogErrorMessage }}</p>
+      <button class="error-close-btn" (click)="showErrorDialog=false">
+        Close
+      </button>
+    </div>
+  </div>
+
+
 
 </div>
