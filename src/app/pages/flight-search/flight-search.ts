@@ -116,9 +116,21 @@ export class FlightSearch {
   }
 
   onSearch() {
-    this.flightService
-      .searchFlights(this.searchForm.value)
-      .subscribe((res) => (this.flights = res));
+    const form = this.searchForm.value;
+
+    const payload = {
+      fromPlace: this.extractCity(form.fromPlace),
+      toPlace: this.extractCity(form.toPlace),
+      journeyDate: form.journeyDate,
+    };
+
+    this.flightService.searchFlights(payload).subscribe((res) => (this.flights = res));
+  }
+
+  extractCity(value: string) {
+    if (!value) return value;
+    const parts = value.split('-');
+    return parts.length > 1 ? parts[1].trim() : value.trim();
   }
 
   filterCities(value: string, type: 'from' | 'to') {
