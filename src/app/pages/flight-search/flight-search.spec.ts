@@ -8,9 +8,8 @@ describe('FlightSearch', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FlightSearch]
-    })
-    .compileComponents();
+      imports: [FlightSearch],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlightSearch);
     component = fixture.componentInstance;

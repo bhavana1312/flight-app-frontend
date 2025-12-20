@@ -2,14 +2,42 @@
   <h2>Search Flights</h2>
 
   <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
-    <label>From</label>
-    <input type="text" formControlName="fromPlace" />
+    <div class="field-wrapper" (focusin)="onFocus('from')" (focusout)="onBlur('from')" tabindex="-1">
 
-    <label>To</label>
-    <input type="text" formControlName="toPlace" />
+      <label>From</label>
 
-    <label>Journey Date</label>
-    <input type="date" formControlName="journeyDate" [min]="today" />
+      <input type="text" formControlName="fromPlace" (input)="filterCities(searchForm.value.fromPlace,'from')"
+        (keydown)="handleKey($event,'from')" />
+
+      <ul class="dropdown" *ngIf="filteredFrom.length>0">
+        <li *ngFor="let city of filteredFrom;let i=index" [class.active]="i===activeFromIndex"
+          (mousedown)="selectCity(city,'from')">{{city}}
+        </li>
+      </ul>
+    </div>
+
+
+    <div class="field-wrapper" (focusin)="onFocus('to')" (focusout)="onBlur('to')" tabindex="-1">
+
+      <label>To</label>
+
+      <input type="text" formControlName="toPlace" (input)="filterCities(searchForm.value.toPlace,'to')"
+        (keydown)="handleKey($event,'to')" />
+
+      <ul class="dropdown" *ngIf="filteredTo.length>0">
+        <li *ngFor="let city of filteredTo;let i=index" [class.active]="i===activeToIndex"
+          (mousedown)="selectCity(city,'to')">{{city}}
+        </li>
+      </ul>
+    </div>
+
+
+
+    <div class="field-wrapper">
+      <label>Journey Date</label>
+      <input type="date" formControlName="journeyDate" [min]="today" />
+    </div>
+
 
     <button type="submit" [disabled]="searchForm.invalid">
       Search Flights
