@@ -33,6 +33,7 @@ export class Booking implements OnInit {
     this.http.get<any[]>(`http://localhost:9090/booking/history/${this.userEmail}`).subscribe({
       next: (res) => {
         this.bookings = res;
+        this.sortBookings();
         this.loading = false;
       },
       error: () => {
@@ -63,6 +64,7 @@ export class Booking implements OnInit {
         this.bookings = this.bookings.map((b) =>
           b.id === this.selectedPnr ? { ...b, bookingStatus: 'CANCELLED' } : b
         );
+        this.sortBookings();
         this.cancelLoading = false;
         this.closeModal();
       },
@@ -72,6 +74,17 @@ export class Booking implements OnInit {
         this.dialogErrorMessage = err?.error?.error || 'Cancellation failed';
         this.showErrorDialog = true;
       },
+    });
+  }
+  sortBookings() {
+    this.bookings = this.bookings.sort((a, b) => {
+      const aCancelled = a.bookingStatus === 'CANCELLED';
+      const bCancelled = b.bookingStatus === 'CANCELLED';
+
+      if (aCancelled && !bCancelled) return 1;
+      if (!aCancelled && bCancelled) return -1;
+
+      return new Date(a.journeyDate).getTime() - new Date(b.journeyDate).getTime();
     });
   }
 }
