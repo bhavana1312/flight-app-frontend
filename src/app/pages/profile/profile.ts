@@ -30,23 +30,14 @@ export class Profile {
       return;
     }
 
-    if (!/[A-Z]/.test(pwd)) {
-      this.errorMsg = 'Password must contain at least one uppercase letter';
-      return;
-    }
-
-    if (!/[a-z]/.test(pwd)) {
-      this.errorMsg = 'Password must contain at least one lowercase letter';
-      return;
-    }
-
-    if (!/[0-9]/.test(pwd)) {
-      this.errorMsg = 'Password must contain at least one number';
-      return;
-    }
-
-    if (!/[!@#$%^&*(),.?":{}|<>_\-+=\[\]\\\/]/.test(pwd)) {
-      this.errorMsg = 'Password must contain at least one special character';
+    if (
+      !/[A-Z]/.test(pwd) ||
+      !/[a-z]/.test(pwd) ||
+      !/[0-9]/.test(pwd) ||
+      !/[!@#$%^&*(),.?":{}|<>_\-+=\[\]\\\/]/.test(pwd)
+    ) {
+      this.errorMsg =
+        'Password must contain at least one uppercase letter, one lowercase letter, one digit and one special character';
       return;
     }
 
