@@ -1,46 +1,68 @@
-<div class="admin-wrapper">
+<div class="admin-page">
 
-  <div class="admin-header">
-    <div>
-      <h1>Flight Inventory</h1>
-      <p>Manage airline inventory and seat availability</p>
+  <div class="card">
+    <h1>Add Flight Inventory</h1>
+    <p class="subtitle">Create a new flight entry</p>
+
+    <div class="field">
+      <label>Airline Name</label>
+      <input [(ngModel)]="inventory.airlineName">
     </div>
 
-    <button class="add-btn">
-      Add Inventory
+    <div class="grid-2">
+      <div class="field">
+        <label>From</label>
+        <input [(ngModel)]="inventory.fromPlace">
+      </div>
+
+      <div class="field">
+        <label>To</label>
+        <input [(ngModel)]="inventory.toPlace">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label>Departure</label>
+        <input type="datetime-local" [(ngModel)]="inventory.departureDateTime">
+      </div>
+
+      <div class="field">
+        <label>Arrival</label>
+        <input type="datetime-local" [(ngModel)]="inventory.arrivalDateTime">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label>Business Seats</label>
+        <input type="number" [(ngModel)]="inventory.businessSeats">
+      </div>
+
+      <div class="field">
+        <label>Business Price</label>
+        <input type="number" [(ngModel)]="inventory.businessSeatPrice">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label>Economy Seats</label>
+        <input type="number" [(ngModel)]="inventory.economySeats">
+      </div>
+
+      <div class="field">
+        <label>Economy Price</label>
+        <input type="number" [(ngModel)]="inventory.economySeatPrice">
+      </div>
+    </div>
+
+    <button class="primary-btn" [disabled]="!isFormValid()" (click)="addInventory()">
+      Add Flight
     </button>
-  </div>
 
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>Flight No</th>
-          <th>Airline</th>
-          <th>From</th>
-          <th>To</th>
-          <th>Date</th>
-          <th>Departure</th>
-          <th>Arrival</th>
-          <th>Seats</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr *ngFor="let flight of flights">
-          <td>{{ flight.flightNumber }}</td>
-          <td>{{ flight.airline }}</td>
-          <td>{{ flight.from }}</td>
-          <td>{{ flight.to }}</td>
-          <td>{{ flight.date }}</td>
-          <td>{{ flight.departure }}</td>
-          <td>{{ flight.arrival }}</td>
-          <td>{{ flight.seats }}</td>
-          <td>₹{{ flight.price }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="msg success" *ngIf="successMsg">{{ successMsg }}</div>
+    <div class="msg error" *ngIf="errorMsg">{{ errorMsg }}</div>
   </div>
 
 </div>
