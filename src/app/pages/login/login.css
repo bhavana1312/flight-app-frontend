@@ -101,3 +101,28 @@
 .auth-footer a:hover {
   text-decoration: underline;
 }
+
+.message {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.message.success {
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+  color: #065f46;
+  border: 1px solid rgba(5, 150, 105, 0.25);
+}
+
+.message.error {
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+  color: #991b1b;
+  border: 1px solid rgba(220, 38, 38, 0.25);
+}

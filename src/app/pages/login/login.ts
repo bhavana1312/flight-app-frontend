@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, signal } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth';
-import { Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -14,8 +13,9 @@ import { CommonModule } from '@angular/common';
 })
 export class Login {
   loginForm: FormGroup;
-  successMessage = '';
-  errorMessage = '';
+
+  successMessage = signal('');
+  errorMessage = signal('');
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
@@ -25,15 +25,18 @@ export class Login {
   }
 
   onSubmit() {
-    this.successMessage = '';
-    this.errorMessage = '';
+    if (this.loginForm.invalid) return;
+
+    this.successMessage.set('');
+    this.errorMessage.set('');
 
     const { username, password } = this.loginForm.value;
 
     this.authService.login(username, password).subscribe({
       next: (res) => {
-        this.successMessage = 'Login successful';
-        const role = res.roles[0];
+        this.successMessage.set('Login successful');
+
+        const role = res.roles?.[0];
 
         setTimeout(() => {
           if (role === 'ROLE_ADMIN') {
@@ -41,10 +44,23 @@ export class Login {
           } else {
             this.router.navigate(['/booking'], { replaceUrl: true });
           }
-        }, 1000);
+        }, 600);
       },
       error: (err) => {
-        this.errorMessage = err?.error || 'Invalid Credentials';
+        let msg = 'Invalid credentials';
+
+        if (typeof err.error === 'string') {
+          try {
+            const parsed = JSON.parse(err.error);
+            msg = parsed.message || msg;
+          } catch {
+            msg = err.error;
+          }
+        } else if (err.error?.message) {
+          msg = err.error.message;
+        }
+
+        this.errorMessage.set(msg);
       },
     });
   }
