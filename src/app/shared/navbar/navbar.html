@@ -20,6 +20,12 @@
       </a>
     </li>
 
+    <li *ngIf="authService.isLoggedIn()">
+      <a routerLink="/profile" routerLinkActive="active">
+        Edit Profile
+      </a>
+    </li>
+
     <li *ngIf="!authService.isLoggedIn()">
       <a routerLink="/login" class="nav-btn">
         Login

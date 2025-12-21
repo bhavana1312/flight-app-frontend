@@ -26,4 +26,9 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/book-flight/book-flight').then((m) => m.BookFlight),
     canActivate: [authGuard],
   },
+  {
+    path: 'profile',
+    loadComponent: () => import('./pages/profile/profile').then((m) => m.Profile),
+    canActivate: [authGuard],
+  },
 ];

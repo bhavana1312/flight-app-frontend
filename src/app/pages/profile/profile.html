@@ -1,0 +1,33 @@
+<div class="profile-page">
+
+  <div class="card">
+    <h1>Edit Profile</h1>
+    <p class="subtitle">Change your account password</p>
+
+    <div class="field">
+      <label>Current Password</label>
+      <input type="password" [(ngModel)]="passwordData.oldPassword">
+    </div>
+
+    <div class="field">
+      <label>New Password</label>
+      <input type="password" [(ngModel)]="passwordData.newPassword">
+    </div>
+
+    <div class="field">
+      <label>Confirm New Password</label>
+      <input type="password" [(ngModel)]="passwordData.confirmPassword">
+    </div>
+
+    <button class="primary-btn"
+      [disabled]="!passwordData.oldPassword || !passwordData.newPassword || !passwordData.confirmPassword"
+      (click)="changePassword()">
+      Update Password
+    </button>
+
+    <div class="msg success" *ngIf="successMsg">{{ successMsg }}</div>
+    <div class="msg error" *ngIf="errorMsg">{{ errorMsg }}</div>
+
+  </div>
+
+</div>
