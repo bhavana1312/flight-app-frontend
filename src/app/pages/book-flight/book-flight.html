@@ -17,7 +17,24 @@
       </select>
     </div>
 
-    <input formControlName="selectedSeats" placeholder="Selected Seats (e.g B3,B4)">
+    <h3>Select Seats</h3>
+
+    <div class="seat-legend">
+      <span class="legend available"></span>Available
+      <span class="legend selected"></span>Selected
+      <span class="legend reserved"></span>Reserved
+      <span class="legend business"></span>Business
+    </div>
+
+    <div class="seat-map">
+      <div class="seat" *ngFor="let seat of seats" [class.reserved]="seat.reserved"
+        [class.selected]="selectedSeats.includes(seat.seatNumber)" [class.business]="seat.seatType==='BUSINESS'"
+        (click)="toggleSeat(seat)">
+        {{ seat.seatNumber }}
+      </div>
+    </div>
+
+    <input formControlName="selectedSeats" type="hidden">
 
     <h3>Passengers</h3>
 
