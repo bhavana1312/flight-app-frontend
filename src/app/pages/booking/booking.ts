@@ -22,6 +22,8 @@ export class Booking implements OnInit {
   cancelLoading = false;
   showErrorDialog = false;
   dialogErrorMessage = '';
+  filteredBookings: any[] = [];
+  filter = 'ALL';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -33,7 +35,7 @@ export class Booking implements OnInit {
     this.http.get<any[]>(`http://localhost:9090/booking/history/${this.userEmail}`).subscribe({
       next: (res) => {
         this.bookings = res;
-        this.sortBookings();
+        this.applyFilter();
         this.loading = false;
       },
       error: () => {
@@ -86,5 +88,21 @@ export class Booking implements OnInit {
 
       return new Date(a.journeyDate).getTime() - new Date(b.journeyDate).getTime();
     });
+  }
+
+  setFilter(type: string) {
+    this.filter = type;
+    this.applyFilter();
+  }
+
+  applyFilter() {
+    if (this.filter === 'ALL') {
+      this.filteredBookings = [...this.bookings];
+    } else if (this.filter === 'ACTIVE') {
+      this.filteredBookings = this.bookings.filter((b) => b.bookingStatus !== 'CANCELLED');
+    } else {
+      this.filteredBookings = this.bookings.filter((b) => b.bookingStatus === 'CANCELLED');
+    }
+    this.sortBookings();
   }
 }

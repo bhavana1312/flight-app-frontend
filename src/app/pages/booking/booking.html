@@ -4,6 +4,12 @@
     <h1>Hello, {{ userName }}</h1>
     <p>Your booking history and travel details</p>
   </div>
+  <div class="filter-bar">
+    <button [class.active]="filter==='ALL'" (click)="setFilter('ALL')">All</button>
+    <button [class.active]="filter==='ACTIVE'" (click)="setFilter('ACTIVE')">Active</button>
+    <button [class.active]="filter==='CANCELLED'" (click)="setFilter('CANCELLED')">Cancelled</button>
+  </div>
+
 
   <div *ngIf="loading" class="loading">
     Loading bookings...
@@ -14,7 +20,7 @@
   </div>
 
   <div class="booking-list" *ngIf="!loading && bookings.length>0">
-    <div class="booking-card" *ngFor="let booking of bookings">
+    <div class="booking-card" *ngFor="let booking of filteredBookings">
 
       <div class="card-top">
         <div>

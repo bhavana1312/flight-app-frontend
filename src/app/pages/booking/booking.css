@@ -162,3 +162,26 @@
   border-radius: 6px;
   cursor: pointer;
 }
+
+.filter-bar{
+  display:flex;
+  gap:12px;
+  margin-bottom:28px;
+}
+
+.filter-bar button{
+  padding:6px 14px;
+  border-radius:20px;
+  border:1px solid #cbd5f5;
+  background:#fff;
+  color:#1e293b;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.filter-bar button.active{
+  background:#1d4ed8;
+  color:#fff;
+  border-color:#1d4ed8;
+}
