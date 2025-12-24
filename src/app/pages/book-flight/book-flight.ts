@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-book-flight',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './book-flight.html',
   styleUrl: './book-flight.css',
 })
@@ -54,7 +54,6 @@ export class BookFlight implements OnInit {
     this.http.get<any>(`http://localhost:9090/flight/${this.flightId}`).subscribe((res) => {
       this.flight = res;
       this.seats = [...res.seats];
-
     });
   }
 
