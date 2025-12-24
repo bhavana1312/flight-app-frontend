@@ -1,33 +1,50 @@
 <div class="profile-page">
-
   <div class="card">
     <h1>Edit Profile</h1>
     <p class="subtitle">Change your account password</p>
 
-    <div class="field">
+    <div class="field password-field">
       <label>Current Password</label>
-      <input type="password" [(ngModel)]="passwordData.oldPassword">
+      <input [type]="showOld ? 'text' : 'password'" [(ngModel)]="passwordData.oldPassword" />
+      <span class="toggle" (click)="showOld = !showOld">{{ showOld ? 'Hide' : 'Show' }}</span>
     </div>
 
-    <div class="field">
+    <div class="field password-field">
       <label>New Password</label>
-      <input type="password" [(ngModel)]="passwordData.newPassword">
+      <input [type]="showNew ? 'text' : 'password'" [(ngModel)]="passwordData.newPassword"
+        (input)="onPasswordInput()" />
+      <span class="toggle" (click)="showNew = !showNew">{{ showNew ? 'Hide' : 'Show' }}</span>
     </div>
 
-    <div class="field">
+    <ul class="rules">
+      <li [class.ok]="passwordRules.length">At least 12 characters</li>
+      <li [class.ok]="passwordRules.uppercase">One uppercase letter</li>
+      <li [class.ok]="passwordRules.lowercase">One lowercase letter</li>
+      <li [class.ok]="passwordRules.digit">One number</li>
+      <li [class.ok]="passwordRules.special">One special character</li>
+    </ul>
+
+    <div class="strength">
+      <div class="bar">
+        <div class="fill" [ngClass]="strengthLabel.toLowerCase()" [style.width.%]="passwordStrength * 20"></div>
+      </div>
+      <span class="label">{{ strengthLabel }}</span>
+    </div>
+
+    <div class="field password-field">
       <label>Confirm New Password</label>
-      <input type="password" [(ngModel)]="passwordData.confirmPassword">
+      <input [type]="showConfirm ? 'text' : 'password'" [(ngModel)]="passwordData.confirmPassword" />
+      <span class="toggle" (click)="showConfirm = !showConfirm">
+        {{ showConfirm ? 'Hide' : 'Show' }}
+      </span>
     </div>
 
-    <button class="primary-btn"
-      [disabled]="!passwordData.oldPassword || !passwordData.newPassword || !passwordData.confirmPassword"
+    <button class="primary-btn" [disabled]="passwordStrength < 5 || !passwordData.oldPassword"
       (click)="changePassword()">
       Update Password
     </button>
 
     <div class="msg success" *ngIf="successMsg">{{ successMsg }}</div>
     <div class="msg error" *ngIf="errorMsg">{{ errorMsg }}</div>
-
   </div>
-
 </div>

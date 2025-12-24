@@ -14,6 +14,21 @@ export class Profile {
   successMsg = '';
   errorMsg = '';
 
+  showOld = false;
+  showNew = false;
+  showConfirm = false;
+
+  passwordStrength = 0;
+  strengthLabel = 'Weak';
+
+  passwordRules = {
+    length: false,
+    uppercase: false,
+    lowercase: false,
+    digit: false,
+    special: false,
+  };
+
   passwordData = {
     oldPassword: '',
     newPassword: '',
@@ -22,30 +37,34 @@ export class Profile {
 
   constructor(private authService: AuthService) {}
 
+  onPasswordInput() {
+    const pwd = this.passwordData.newPassword;
+
+    this.passwordRules.length = pwd.length >= 12;
+    this.passwordRules.uppercase = /[A-Z]/.test(pwd);
+    this.passwordRules.lowercase = /[a-z]/.test(pwd);
+    this.passwordRules.digit = /[0-9]/.test(pwd);
+    this.passwordRules.special = /[!@#$%^&*(),.?":{}|<>_\-+=\[\]\\\/]/.test(pwd);
+
+    const passedRules = Object.values(this.passwordRules).filter((v) => v).length;
+    this.passwordStrength = passedRules;
+
+    if (passedRules <= 2) this.strengthLabel = 'Weak';
+    else if (passedRules === 3 || passedRules === 4) this.strengthLabel = 'Medium';
+    else this.strengthLabel = 'Strong';
+  }
+
   changePassword() {
     this.successMsg = '';
     this.errorMsg = '';
 
-    const pwd = this.passwordData.newPassword;
-
-    if (pwd.length < 12) {
-      this.errorMsg = 'Password must be at least 12 characters long';
+    if (this.passwordStrength < 5) {
+      this.errorMsg = 'Password does not meet all requirements';
       return;
     }
 
-    if (
-      !/[A-Z]/.test(pwd) ||
-      !/[a-z]/.test(pwd) ||
-      !/[0-9]/.test(pwd) ||
-      !/[!@#$%^&*(),.?":{}|<>_\-+=\[\]\\\/]/.test(pwd)
-    ) {
-      this.errorMsg =
-        'Password must contain at least one uppercase letter, one lowercase letter, one digit and one special character';
-      return;
-    }
-
-    if (pwd !== this.passwordData.confirmPassword) {
-      this.errorMsg = 'New password and confirm password do not match';
+    if (this.passwordData.newPassword !== this.passwordData.confirmPassword) {
+      this.errorMsg = 'Passwords do not match';
       return;
     }
 
@@ -68,5 +87,10 @@ export class Profile {
       newPassword: '',
       confirmPassword: '',
     };
+    this.passwordStrength = 0;
+    this.strengthLabel = 'Weak';
+    Object.keys(this.passwordRules).forEach(
+      (k) => (this.passwordRules[k as keyof typeof this.passwordRules] = false)
+    );
   }
 }
