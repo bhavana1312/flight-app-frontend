@@ -67,4 +67,10 @@ export class AuthService {
     console.log(user.roles);
     return user?.roles?.[0];
   }
+  changePassword(oldPassword: string, newPassword: string) {
+    return this.http.post(`${this.baseUrl}/change-password`, {
+      oldPassword,
+      newPassword,
+    });
+  }
 }

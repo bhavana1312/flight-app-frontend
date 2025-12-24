@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-profile',
@@ -18,6 +19,8 @@ export class Profile {
     newPassword: '',
     confirmPassword: '',
   };
+
+  constructor(private authService: AuthService) {}
 
   changePassword() {
     this.successMsg = '';
@@ -46,8 +49,17 @@ export class Profile {
       return;
     }
 
-    this.successMsg = 'Password changed successfully';
-    this.resetForm();
+    this.authService
+      .changePassword(this.passwordData.oldPassword, this.passwordData.newPassword)
+      .subscribe({
+        next: () => {
+          this.successMsg = 'Password changed successfully';
+          this.resetForm();
+        },
+        error: (err) => {
+          this.errorMsg = err?.error?.message || 'Failed to change password';
+        },
+      });
   }
 
   resetForm() {
