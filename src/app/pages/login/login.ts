@@ -42,7 +42,7 @@ export class Login {
           if (role === 'ROLE_ADMIN') {
             this.router.navigate(['/admin'], { replaceUrl: true });
           } else {
-            this.router.navigate(['/booking'], { replaceUrl: true });
+            this.router.navigate(['/profile'], { replaceUrl: true });
           }
         }, 600);
       },
