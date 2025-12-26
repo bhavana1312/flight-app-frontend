@@ -25,6 +25,7 @@ export class AuthService {
               JSON.stringify({
                 username: res.username,
                 email: res.email,
+                roles: res.roles,
               })
             );
           }
@@ -51,6 +52,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 
   isLoggedIn(): boolean {
@@ -62,15 +64,18 @@ export class AuthService {
     return user ? JSON.parse(user) : null;
   }
 
-  getUserRole() {
+  getUserRole(): string | null {
     const user = this.getLoggedInUser();
-    console.log(user.roles);
-    return user?.roles?.[0];
+    return user?.roles?.[0] ?? null;
   }
   changePassword(oldPassword: string, newPassword: string) {
     return this.http.post(`${this.baseUrl}/change-password`, {
       oldPassword,
       newPassword,
     });
+  }
+  hasRole(role: string): boolean {
+    const userRole = this.getUserRole();
+    return userRole === role;
   }
 }

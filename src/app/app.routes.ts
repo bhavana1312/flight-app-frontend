@@ -3,6 +3,7 @@ import { Home } from './pages/home/home';
 import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
 import { authGuard } from './guards/auth-guard';
+import { roleGuard } from './guards/role-guard';
 import { FlightSearch } from './pages/flight-search/flight-search';
 
 export const routes: Routes = [
@@ -19,7 +20,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     loadComponent: () => import('./pages/admin/admin').then((m) => m.Admin),
-    canActivate: [authGuard],
+    canActivate: [authGuard, roleGuard],
   },
   {
     path: 'booking/:flightId',
