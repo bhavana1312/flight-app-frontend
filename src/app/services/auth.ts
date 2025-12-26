@@ -78,4 +78,14 @@ export class AuthService {
     const userRole = this.getUserRole();
     return userRole === role;
   }
+  forgotPassword(email: string) {
+    return this.http.post(`${this.baseUrl}/forgot-password`, { email });
+  }
+
+  resetPassword(token: string, newPassword: string) {
+    return this.http.post(`${this.baseUrl}/reset-password`, {
+      token,
+      newPassword,
+    });
+  }
 }

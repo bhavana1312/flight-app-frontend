@@ -52,7 +52,10 @@
 
     <button type="button" class="add-btn" (click)="addPassenger()">Add Passenger</button>
 
-    <button type="submit" class="submit-btn">Confirm Booking</button>
+    <button type="submit" class="submit-btn" [disabled]="!isBookingValid()">
+      Confirm Booking
+    </button>
+
 
   </form>
 

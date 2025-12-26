@@ -13,6 +13,17 @@ export const routes: Routes = [
   { path: 'search', component: FlightSearch },
 
   {
+    path: 'forgot-password',
+    loadComponent: () =>
+      import('./pages/forgot-password/forgot-password').then((m) => m.ForgotPassword),
+  },
+  {
+    path: 'reset-password',
+    loadComponent: () =>
+      import('./pages/reset-password/reset-password').then((m) => m.ResetPassword),
+  },
+
+  {
     path: 'booking',
     loadComponent: () => import('./pages/booking/booking').then((m) => m.Booking),
     canActivate: [authGuard],

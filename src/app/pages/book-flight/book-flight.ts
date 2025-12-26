@@ -108,4 +108,16 @@ export class BookFlight implements OnInit {
       error: () => alert('Booking failed'),
     });
   }
+  isBookingValid() {
+    if (!this.bookingForm.valid) return false;
+
+    const seatsCount = this.bookingForm.value.numberOfSeats;
+    if (this.selectedSeats.length !== seatsCount) return false;
+
+    for (let i = 0; i < this.passengers.length; i++) {
+      if (this.passengers.at(i).invalid) return false;
+    }
+
+    return true;
+  }
 }
